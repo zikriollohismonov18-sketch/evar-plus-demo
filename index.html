@@ -1,383 +1,342 @@
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tg">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#087c50">
-<title>ЁВАР PLUS | Demo V4</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#087b31">
+<title>ЁВАР PLUS — Demo V5</title>
 <style>
-:root{--g:#087c50;--d:#07583c;--mint:#e8f7ef;--bg:#f4f6f5;--ink:#182b22;--mut:#718178;--line:#e4ebe6;--red:#df4238}
+:root{
+ --green:#078533;--dark:#07582b;--light:#e9f8ec;
+ --red:#ed303d;--ink:#17241d;--muted:#77867c;
+ --bg:#f4f7f4;--line:#e6ece7;--shadow:0 8px 25px #0d442014;
+}
 *{box-sizing:border-box}
-body{margin:0;background:#e9eeeb;color:var(--ink);font:15px system-ui,-apple-system,Arial,sans-serif}
+body{margin:0;background:#e9eee9;color:var(--ink);font-family:Arial,sans-serif}
 button,input,select{font:inherit}
 button{cursor:pointer}
-button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #a5e6c2;outline-offset:2px}
-.app{max-width:550px;min-height:100vh;background:white;margin:auto;padding-bottom:90px}
-header{position:sticky;top:0;z-index:10;background:var(--g);color:white;padding:13px 16px 15px}
-.head{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand{font-size:25px;font-weight:900;letter-spacing:.5px}
-.brand em{font-style:normal;color:#d5ff8c}
-.pill{border:1px solid #ffffff80;border-radius:30px;padding:5px 9px;font-size:10px}
-.sub{font-size:12px;opacity:.9;margin:4px 0 10px}
-.search{width:100%;padding:13px 15px;border:0;border-radius:12px;outline:none}
-main{padding:16px}
-.page{display:none}
-.page.active{display:block}
-h1{font-size:28px;line-height:1.13;margin:10px 0}
-h2{font-size:19px;margin:23px 0 12px}
-h3{font-size:15px;margin:8px 0}
-.muted{color:var(--mut);font-size:13px}
-.hero{background:linear-gradient(120deg,#07563b,#0ba66a);border-radius:20px;color:white;padding:23px;min-height:190px;position:relative;overflow:hidden}
-.hero:after{content:'✦';font-size:130px;position:absolute;right:-8px;bottom:-60px;opacity:.14}
-.hero p{font-size:13px;max-width:270px}
-.btn{border:0;background:var(--g);color:white;border-radius:11px;padding:12px 14px;font-weight:750}
-.btn.white{background:white;color:var(--g)}
-.btn.outline{background:white;color:var(--g);border:1px solid var(--g)}
-.btn:disabled{opacity:.45;cursor:not-allowed}
-.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}
-.quick button{border:0;background:var(--mint);color:var(--d);border-radius:13px;padding:13px 3px;font-size:11px;font-weight:700}
-.quick span{display:block;font-size:24px;margin-bottom:6px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.card{border:1px solid var(--line);border-radius:16px;padding:12px;background:white;overflow:hidden}
-.product{position:relative}
-.photo{height:136px;width:100%;object-fit:cover;border-radius:11px;background:#edf3ee}
-.badge{display:inline-block;background:#ffe8e6;color:#bd342d;font-size:10px;font-weight:800;padding:5px 7px;border-radius:6px;margin-top:8px}
-.price{color:var(--g);font-size:19px;font-weight:900}
-.old{text-decoration:line-through;color:#8c9991;font-size:12px}
-.product h3{min-height:37px}
-.product .btn{width:100%;margin-top:10px}
-.heart{position:absolute;right:20px;top:20px;border:0;background:white;border-radius:50%;width:34px;height:34px;font-size:19px;box-shadow:0 2px 8px #0002}
-.chips{display:flex;gap:7px;overflow:auto;padding:5px 0 12px}
-.chip{border:1px solid var(--line);background:white;border-radius:22px;padding:9px 12px;white-space:nowrap}
-.chip.active{background:var(--g);color:white}
-.plus{background:linear-gradient(130deg,#064b34,#0d9761);color:white;border-radius:19px;padding:21px}
-.points{font-size:35px;font-weight:900;margin:10px 0}
-.qrbox{background:white;color:#24352c;border-radius:13px;width:fit-content;margin:16px auto;padding:15px;text-align:center}
-.qrbox img,.qrbox canvas{display:block;margin:auto}
-.coupon{border:1px dashed var(--g);border-radius:15px;padding:15px;margin:12px 0}
-.coupon strong{color:var(--g);font-size:17px}
-.coupon .btn{width:100%}
-.line{padding:14px 0;border-bottom:1px solid var(--line)}
-.qty{display:flex;gap:9px;align-items:center}
-.tiny{border:0;background:var(--mint);color:var(--g);padding:8px 11px;border-radius:9px;font-weight:800}
-.total{color:var(--g);font-weight:900;font-size:22px}
-.field{width:100%;padding:13px;border:1px solid var(--line);border-radius:11px;margin:7px 0 13px}
-.notice{background:#fff7e7;color:#795b22;border-radius:11px;padding:12px;font-size:12px;margin:14px 0}
-.empty{text-align:center;padding:35px 10px;color:var(--mut)}
-.stat{background:var(--mint);padding:13px;border-radius:13px}
-.stat b{font-size:22px;color:var(--d)}
-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:550px;display:grid;grid-template-columns:repeat(5,1fr);background:white;border-top:1px solid var(--line);padding:8px 2px max(8px,env(safe-area-inset-bottom));z-index:20}
-nav button{border:0;background:transparent;color:#718078;font-size:10px;padding:4px 1px}
-nav span{display:block;font-size:23px;margin-bottom:3px}
-nav button.active{color:var(--g);font-weight:800}
-#toast{display:none;position:fixed;bottom:90px;left:50%;transform:translateX(-50%);z-index:30;background:#173d2b;color:white;padding:12px 16px;border-radius:12px;text-align:center;max-width:90%}
-@media(min-width:600px){.app{box-shadow:0 8px 35px #0001}}
+.app{max-width:540px;margin:auto;background:var(--bg);min-height:100vh;padding-bottom:92px}
+.header{background:linear-gradient(135deg,#00652c,#0ab344);color:white;padding:19px 18px 25px;border-radius:0 0 25px 25px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.logo{font-size:27px;font-weight:900;letter-spacing:-1px}
+.logo span{background:#d6ff42;color:#06732b;border-radius:9px;padding:3px 8px;font-style:italic;font-size:18px}
+.demo{font-size:10px;background:#ffffff29;border:1px solid #ffffff50;border-radius:20px;padding:5px 8px}
+.greet{margin-top:20px;font-size:15px}
+.greet strong{display:block;font-size:23px;margin-top:4px}
+.points{background:#ffffff20;border:1px solid #ffffff65;border-radius:15px;padding:9px 12px;font-weight:bold;white-space:nowrap}
+.searchbar{display:flex;gap:8px;margin-top:18px}
+.searchbar input{flex:1;min-width:0;border:0;outline:0;padding:14px;border-radius:13px}
+.scan{border:0;background:white;color:var(--green);border-radius:13px;padding:0 15px;font-size:23px}
+.content{padding:15px}
+.hero{background:linear-gradient(120deg,#d60023,#ff5952);color:white;border-radius:20px;padding:22px;position:relative;overflow:hidden;min-height:172px;display:flex;align-items:center}
+.hero h2{font-size:25px;margin:0 0 8px}
+.hero p{font-size:13px;max-width:210px}
+.hero .food{position:absolute;right:8px;bottom:13px;font-size:75px;transform:rotate(-10deg)}
+.hero button{background:white;color:#d7192c;border:0;border-radius:12px;padding:10px 15px;font-weight:bold}
+.shortcuts{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:18px 0}
+.shortcut{border:0;background:white;border-radius:15px;padding:12px 3px;font-size:11px;box-shadow:var(--shadow)}
+.shortcut b{display:grid;place-items:center;margin:0 auto 8px;width:45px;height:45px;border-radius:14px;font-size:23px;background:#e6f8e9}
+.shortcut:nth-child(1) b{background:#eee5ff}
+.shortcut:nth-child(2) b{background:#ffe8e7}
+.shortcut:nth-child(3) b{background:#fff0c9}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin:22px 0 12px}
+.section-head h3{margin:0;font-size:19px}
+.more{background:none;border:0;color:var(--green);font-size:13px;font-weight:bold}
+.categories{display:flex;gap:9px;overflow-x:auto;padding-bottom:5px;scrollbar-width:none}
+.cat{border:1px solid var(--line);background:white;padding:11px 15px;border-radius:20px;white-space:nowrap}
+.cat.active{background:var(--green);color:white;border-color:var(--green)}
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.product{background:white;border-radius:17px;padding:11px;box-shadow:var(--shadow);position:relative;min-width:0}
+.product img{width:100%;height:125px;object-fit:cover;border-radius:12px;background:#f2f2f2}
+.product h4{margin:9px 0 5px;font-size:14px}
+.product small{color:var(--muted)}
+.price{font-weight:900;font-size:16px;margin-top:9px}
+.old{text-decoration:line-through;color:#9ba6a0;font-size:11px;margin-left:5px}
+.add{float:right;border:0;background:var(--green);color:white;border-radius:10px;padding:8px 11px;font-size:17px}
+.heart{position:absolute;top:17px;right:17px;border:0;background:white;border-radius:50%;width:32px;height:32px;font-size:20px}
+.discount{position:absolute;top:17px;left:17px;background:var(--red);color:white;padding:5px 8px;border-radius:8px;font-size:12px;font-weight:bold}
+.coupon{background:white;border-radius:17px;padding:15px;margin-bottom:12px;display:flex;gap:13px;align-items:center;box-shadow:var(--shadow)}
+.coupon .symbol{font-size:35px;background:#eaf7ee;border-radius:14px;padding:13px}
+.coupon .info{flex:1}
+.coupon h3{margin:0 0 5px;font-size:17px}
+.coupon p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
+.primary{border:0;background:var(--green);color:white;border-radius:12px;padding:12px 15px;font-weight:bold}
+.primary:disabled{background:#a9b7ac}
+.secondary{border:1px solid #b9d9c0;background:white;color:var(--green);border-radius:12px;padding:11px 14px;font-weight:bold}
+.card{background:linear-gradient(145deg,#007f35,#004e26);color:white;border-radius:23px;padding:22px;text-align:center;box-shadow:var(--shadow)}
+.card .brand{font-size:25px;font-weight:900}
+.card .brand span{color:#d8ff5b}
+.qrbox{background:white;display:inline-block;padding:13px;border-radius:17px;margin:20px auto 12px;min-width:176px;min-height:176px}
+.qrbox canvas,.qrbox img{display:block;margin:auto}
+.card .number{font-size:12px;letter-spacing:2px}
+.card .balance{font-size:25px;font-weight:900;margin-top:16px}
+.panel{background:white;border-radius:18px;padding:17px;margin:13px 0;box-shadow:var(--shadow)}
+.panel h3{margin:0 0 13px}
+.rowline{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.rowline:last-child{border:0}
+.rowline small{color:var(--muted)}
+.qty{display:flex;align-items:center;gap:10px}
+.qty button{border:0;background:var(--light);color:var(--green);width:30px;height:30px;border-radius:9px;font-size:19px}
+.empty{text-align:center;padding:45px 15px;color:var(--muted)}
+.empty .emoji{font-size:58px}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);max-width:540px;width:100%;background:white;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:9px 4px calc(10px + env(safe-area-inset-bottom));z-index:10}
+.nav button{background:none;border:0;color:#829188;min-width:55px;font-size:10px;position:relative}
+.nav button i{display:block;font-size:24px;font-style:normal;margin-bottom:4px}
+.nav button.active{color:var(--green);font-weight:bold}
+.nav .center i{background:var(--green);color:white;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;margin:-22px auto 3px;box-shadow:0 5px 15px #00852d55}
+.count{position:absolute;right:3px;top:-6px;background:red;color:white;border-radius:20px;padding:2px 5px;font-size:10px}
+.field{width:100%;border:1px solid var(--line);padding:13px;border-radius:12px;margin:7px 0 13px;background:white}
+.notice{font-size:12px;color:#66796c;line-height:1.6}
+.toast{position:fixed;bottom:92px;left:50%;transform:translateX(-50%);background:#173c26;color:white;padding:13px 18px;border-radius:13px;z-index:50;display:none;max-width:90%;text-align:center}
+.receipt{border:1px dashed #aab9ad;border-radius:12px;padding:13px;margin:10px 0}
+.hidden{display:none!important}
 </style>
 </head>
 <body>
 <div class="app">
-<header>
-<div class="head">
-<div class="brand">ЁВАР <em>PLUS</em></div>
-<span class="pill">DEMO · ғайрирасмӣ</span>
-</div>
-<div class="sub">Хариди осон, имтиёзҳои бештар</div>
-<input id="search" class="search" type="search" placeholder="🔍 Ҷустуҷӯи маҳсулот..." oninput="searchProducts(this.value)">
+<header class="header">
+ <div class="top">
+  <div class="logo">ЁВАР <span>PLUS</span></div>
+  <div class="demo">DEMO · ҒАЙРИРАСМӢ</div>
+ </div>
+ <div class="top">
+  <div class="greet">Салом, <strong id="hello">Муштарии азиз!</strong></div>
+  <div class="points">🪙 <span id="pointsTop">120</span> хол</div>
+ </div>
+ <div class="searchbar">
+  <input id="search" placeholder="🔍 Ҷустуҷӯи маҳсулот..." oninput="searchProducts(this.value)">
+  <button class="scan" onclick="navigate('plus')">▦</button>
+ </div>
 </header>
-<main>
-<section id="home" class="page active">
-<div class="hero">
-<small>ЁВАР PLUS · НАМУНА</small>
-<h1>Ҳар рӯз<br>хариди фоидаовар</h1>
-<p>Каталог, тахфифҳо ва купонҳои махсус дар як барнома</p>
-<button class="btn white" onclick="go('products')">Дидани маҳсулот →</button>
-</div>
-<div class="quick">
-<button onclick="go('plus')"><span>🎟️</span>Купонҳо</button>
-<button onclick="go('plus')"><span>▦</span>Корти Plus</button>
-<button onclick="go('list')"><span>📝</span>Рӯйхат</button>
-<button onclick="go('profile')"><span>📍</span>Филиал</button>
-</div>
-<div class="row">
-<h2>🔥 Аксияҳои ҳафта</h2>
-<button class="chip" onclick="go('products')">Ҳама →</button>
-</div>
-<div id="homeProducts" class="grid"></div>
-<h2>Имтиёзҳои ЁВАР PLUS</h2>
-<div class="plus">
-<h2 style="margin:0">ЁВАР PLUS ✨</h2>
-<p>Купонҳо, бонусҳо ва корти рақамии шахсӣ</p>
-<button class="btn white" onclick="go('plus')">Кушодани Plus</button>
-</div>
-</section>
-<section id="products" class="page">
-<h2>🛍️ Каталоги маҳсулот</h2>
-<p class="muted">Аксҳо ва нархҳо танҳо барои намоишанд.</p>
-<div id="categories" class="chips"></div>
-<div id="allProducts" class="grid"></div>
-</section>
-<section id="plus" class="page">
-<div class="plus">
-<div class="row">
-<h2 style="margin:0">ЁВАР PLUS</h2><span>⭐</span>
-</div>
-<p style="font-size:12px">Корти рақамии озмоишӣ</p>
-<div class="points">120 хол</div>
-<div class="qrbox">
-<div id="qr"></div>
-<small id="memberNumber"></small>
-</div>
-<p style="font-size:12px;text-align:center">Ин QR дар кассаи воқеӣ кор намекунад</p>
-</div>
-<h2>🎟️ Купонҳои ман</h2>
-<div id="coupons"></div>
-<h2>🎁 Мукофотҳо</h2>
-<div class="card">
-<b>120 хол (намунавӣ)</b>
-<p class="muted">Бонусҳои воқеӣ ва қоидаҳои истифода танҳо баъди ҳамкорӣ бо Ёвар фаъол мешаванд.</p>
-</div>
-<h2>🧾 Расидҳои электронӣ</h2>
-<div class="card">
-<p class="muted">Расидҳои намунавии санҷишӣ баъди анҷоми хариди Demo дар ин ҷо пайдо мешаванд.</p>
-<div id="receipts"></div>
-</div>
-</section>
-<section id="cart" class="page">
-<h2>🛒 Сабади ман</h2>
-<div id="cartItems"></div>
-<div class="card">
-<div class="line row"><span>Маблағи маҳсулот</span><b id="subtotal">0.00 сомонӣ</b></div>
-<div class="line row"><span>Тахфифи купон (Demo)</span><b id="discount">0.00 сомонӣ</b></div>
-<div class="line row"><b>Ҳамагӣ</b><span class="total" id="cartTotal">0.00 сомонӣ</span></div>
-<button class="btn" style="width:100%;margin-top:14px" onclick="checkout()">Анҷоми хариди намунавӣ</button>
-</div>
-<div class="notice">Ин амалиёт танҳо расиди намунавӣ месозад. Пул гирифта намешавад ва фармоиши воқеӣ фиристода намешавад.</div>
-</section>
-<section id="list" class="page">
-<h2>📝 Рӯйхати харид</h2>
-<p class="muted">Маҳсулоти дӯстдоштаатонро нигоҳ доред.</p>
-<div id="favorites"></div>
-</section>
-<section id="profile" class="page">
-<h2>👤 Профили муштарӣ</h2>
-<div class="card">
-<label for="username">Номи муштарӣ</label>
-<input id="username" class="field" maxlength="80" placeholder="Номи худро нависед">
-<button class="btn" onclick="saveProfile()">Нигоҳ доштан</button>
-</div>
-<h2>🏪 Интихоби филиал</h2>
-<div class="card">
-<label for="branch">Шаҳр / филиал (намунавӣ)</label>
-<select class="field" id="branch" onchange="saveBranch()">
-<option value="Душанбе — намунавӣ">Душанбе — намунавӣ</option>
-<option value="Хуҷанд — намунавӣ">Хуҷанд — намунавӣ</option>
-<option value="Бохтар — намунавӣ">Бохтар — намунавӣ</option>
-<option value="Кӯлоб — намунавӣ">Кӯлоб — намунавӣ</option>
-</select>
-<p class="muted">Ин рӯйхат ба филиалҳои воқеӣ ва мавҷудияти мол пайваст нест.</p>
-</div>
-<h2>Маълумоти ман</h2>
-<div class="card">
-<div class="line">💳 Корти ЁВАР PLUS — Demo</div>
-<div class="line">⭐ Бонусҳо — 120 хол (Demo)</div>
-<div class="line">🌐 Забон — тоҷикӣ</div>
-<div class="line">🧾 Расидҳои Demo — <b id="receiptCount">0</b></div>
-</div>
-<div class="notice">Лоиҳаи мустақили пешниҳодӣ. Ин сомонаи расмии «Ёвар» нест. Маълумоти Demo танҳо дар браузери шумо нигоҳ дошта мешавад.</div>
-<button class="btn outline" onclick="clearDemo()">Тоза кардани маълумоти Demo</button>
-</section>
-</main>
-<nav>
-<button data-page="home" class="active" onclick="go('home')"><span>⌂</span>Асосӣ</button>
-<button data-page="products" onclick="go('products')"><span>🛍️</span>Маҳсулот</button>
-<button data-page="plus" onclick="go('plus')"><span>🎟️</span>Plus</button>
-<button data-page="cart" onclick="go('cart')"><span>🛒</span>Сабад</button>
-<button data-page="profile" onclick="go('profile')"><span>👤</span>Профил</button>
+<main class="content" id="main"></main>
+<nav class="nav">
+ <button id="nav-home" onclick="navigate('home')"><i>⌂</i>Асосӣ</button>
+ <button id="nav-products" onclick="navigate('products')"><i>▦</i>Каталог</button>
+ <button id="nav-plus" class="center" onclick="navigate('plus')"><i>▣</i>PLUS</button>
+ <button id="nav-cart" onclick="navigate('cart')"><i>🛒</i>Сабад <span class="count" id="cartCount" style="display:none"></span></button>
+ <button id="nav-profile" onclick="navigate('profile')"><i>♙</i>Профил</button>
 </nav>
 </div>
-<div id="toast" role="status" aria-live="polite"></div>
+<div class="toast" id="toast"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-'use strict';
+const KEY="yovar_plus_demo_v5";
 const products=[
-{id:1,name:'Шир 1 литр',cat:'Ширӣ',price:9.5,old:11,img:'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=500&auto=format&fit=crop'},
-{id:2,name:'Нон',cat:'Нон',price:4,old:5,img:'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&auto=format&fit=crop'},
-{id:3,name:'Себ 1 кг',cat:'Мева',price:12,old:15,img:'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=500&auto=format&fit=crop'},
-{id:4,name:'Банан 1 кг',cat:'Мева',price:18,old:22,img:'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=500&auto=format&fit=crop'},
-{id:5,name:'Тухм 10 дона',cat:'Ширӣ',price:16,old:19,img:'https://images.unsplash.com/photo-1518569656558-1f25e69d93d7?w=500&auto=format&fit=crop'},
-{id:6,name:'Равғани зайтун',cat:'Хӯрокворӣ',price:19,old:23,img:'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=500&auto=format&fit=crop'},
-{id:7,name:'Биринҷ 1 кг',cat:'Хӯрокворӣ',price:15,old:18,img:'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&auto=format&fit=crop'},
-{id:8,name:'Картошка 1 кг',cat:'Сабзавот',price:5,old:7,img:'https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=500&auto=format&fit=crop'},
-{id:9,name:'Помидор 1 кг',cat:'Сабзавот',price:10,old:13,img:'https://images.unsplash.com/photo-1546470427-e5b89a5f94b2?w=500&auto=format&fit=crop'},
-{id:10,name:'Панир',cat:'Ширӣ',price:21,old:25,img:'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=500&auto=format&fit=crop'},
-{id:11,name:'Шоколад',cat:'Ширинӣ',price:8,old:10,img:'https://images.unsplash.com/photo-1511381939415-e44015466834?w=500&auto=format&fit=crop'},
-{id:12,name:'Ангур 1 кг',cat:'Мева',price:20,old:24,img:'https://images.unsplash.com/photo-1537640538966-79f369143f8f?w=500&auto=format&fit=crop'}
+{id:1,n:"Банан",cat:"Мева",price:12.90,old:16.90,unit:"1 кг",img:"photo-1571771894821-ce9b6c11b08e"},
+{id:2,n:"Помидор",cat:"Сабзавот",price:8.90,old:11.90,unit:"1 кг",img:"photo-1546470427-e5b89d0c4e8b"},
+{id:3,n:"Себ",cat:"Мева",price:10.90,old:14.90,unit:"1 кг",img:"photo-1560806887-1e4cd0b6cbd6"},
+{id:4,n:"Бодиринг",cat:"Сабзавот",price:7.50,old:9.50,unit:"1 кг",img:"photo-1449300079323-02e209d9d3a6"},
+{id:5,n:"Шир",cat:"Ширӣ",price:13.50,old:16.00,unit:"1 литр",img:"photo-1550583724-b2692b85b150"},
+{id:6,n:"Панир",cat:"Ширӣ",price:27.00,old:32.00,unit:"500 г",img:"photo-1486297678162-eb2a19b0a32d"},
+{id:7,n:"Нон",cat:"Нон",price:4.50,old:5.50,unit:"1 дона",img:"photo-1509440159596-0249088772ff"},
+{id:8,n:"Тухм",cat:"Дигар",price:18.00,old:21.00,unit:"10 дона",img:"photo-1506976785307-8732e854ad03"},
+{id:9,n:"Афлесун",cat:"Мева",price:15.00,old:19.00,unit:"1 кг",img:"photo-1547514701-42782101795e"},
+{id:10,n:"Сабзӣ",cat:"Сабзавот",price:6.50,old:8.00,unit:"1 кг",img:"photo-1445282768818-728615cc910a"},
+{id:11,n:"Равған",cat:"Дигар",price:24.00,old:28.00,unit:"1 литр",img:"photo-1474979266404-7eaacbcd87c5"},
+{id:12,n:"Гӯшт",cat:"Гӯшт",price:85.00,old:95.00,unit:"1 кг",img:"photo-1607623814075-e51df1bdc82f"}
 ];
 const coupons=[
-{id:'milk',title:'20% тахфиф барои шир',desc:'Барои шир (Demo)'},
-{id:'fruit',title:'15% тахфиф барои мева',desc:'Барои себ, банан ва ангур (Demo)'},
-{id:'basket',title:'10 сомонӣ тахфиф',desc:'Барои хариди зиёда аз 150 сомонӣ (Demo)'}
+{id:"milk",title:"20% тахфиф барои шир",desc:"Барои маҳсулоти категорияи ширӣ",symbol:"🥛",type:"cat",cat:"Ширӣ",value:20},
+{id:"fruit",title:"15% тахфиф барои мева",desc:"Барои маҳсулоти категорияи мева",symbol:"🍎",type:"cat",cat:"Мева",value:15},
+{id:"basket",title:"10 сомонӣ тахфиф",desc:"Барои сабади зиёда аз 150 сомонӣ",symbol:"🛍️",type:"basket",value:10}
 ];
-const key='yovar_plus_demo_v4';
-let saved={};
-try{saved=JSON.parse(localStorage.getItem(key))||{}}catch(e){}
-let cart=saved.cart&&typeof saved.cart==='object'?saved.cart:{};
-let activated=Array.isArray(saved.activated)?saved.activated:[];
-let favorites=Array.isArray(saved.favorites)?saved.favorites:[];
-let receipts=Array.isArray(saved.receipts)?saved.receipts:[];
-let username=typeof saved.username==='string'?saved.username:'';
-let branch=typeof saved.branch==='string'?saved.branch:'Душанбе — намунавӣ';
-let category='Ҳама',searchText='';
-const $=id=>document.getElementById(id);
-const money=n=>Number(n).toFixed(2)+' сомонӣ';
-function persist(){
-try{localStorage.setItem(key,JSON.stringify({cart,activated,favorites,receipts,username,branch}))}catch(e){}
+function initial(){return {name:"",city:"Душанбе",points:120,cart:{},favorites:[],activeCoupons:[],receipts:[],seq:1}}
+let state;
+try{state={...initial(),...JSON.parse(localStorage.getItem(KEY)||"{}")}}catch(e){state=initial()}
+let page="home",category="Ҳама",query="";
+function save(){localStorage.setItem(KEY,JSON.stringify(state));updateHeader()}
+function money(v){return Number(v).toFixed(2)+" сомонӣ"}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function updateHeader(){
+ document.getElementById("hello").textContent=state.name?state.name+"!":"Муштарии азиз!";
+ document.getElementById("pointsTop").textContent=state.points;
+ let count=Object.values(state.cart).reduce((a,b)=>a+b,0);
+ let el=document.getElementById("cartCount");el.textContent=count;el.style.display=count?"block":"none";
 }
 function toast(s){
-$('toast').textContent=s;
-$('toast').style.display='block';
-clearTimeout(window.toastTimer);
-window.toastTimer=setTimeout(()=>$('toast').style.display='none',2500)
+ let e=document.getElementById("toast");e.textContent=s;e.style.display="block";
+ clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>e.style.display="none",2400);
 }
-function go(page){
-document.querySelectorAll('.page').forEach(e=>e.classList.toggle('active',e.id===page));
-document.querySelectorAll('nav button').forEach(e=>e.classList.toggle('active',e.dataset.page===page));
-$('search').style.display=['home','products'].includes(page)?'block':'none';
-if(page==='cart')renderCart();
-if(page==='plus')renderPlus();
-if(page==='list')renderFavorites();
-window.scrollTo(0,0)
+function navigate(p){
+ page=p;document.getElementById("search").value="";query="";
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+ let n=document.getElementById("nav-"+p);if(n)n.classList.add("active");
+ render();window.scrollTo({top:0,behavior:"smooth"});
 }
-function productHTML(p){
-return `<div class="card product"><button class="heart" aria-label="Рӯйхати харид" onclick="toggleFavorite(${p.id})">${favorites.includes(p.id)?'♥':'♡'}</button><img class="photo" src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div style="display:none;background:#e8f7ef;border-radius:10px;padding:45px 5px;text-align:center;font-size:12px">Акс дастрас нест</div><span class="badge">АКСИЯ · DEMO</span><h3>${p.name}</h3><span class="old">${money(p.old)}</span><div class="price">${money(p.price)}</div><button class="btn" onclick="addCart(${p.id})">+ Ба сабад</button></div>`
+function searchProducts(s){query=s;page="products";render()}
+function setCat(c){category=c;render()}
+function photo(p){return "https://images.unsplash.com/"+p.img+"?auto=format&fit=crop&w=450&q=80"}
+function productCard(p){
+ let fav=state.favorites.includes(p.id);
+ let discount=Math.round((1-p.price/p.old)*100);
+ return `<div class="product">
+ <span class="discount">-${discount}%</span>
+ <button class="heart" onclick="toggleFav(${p.id})">${fav?"❤️":"♡"}</button>
+ <img loading="lazy" src="${photo(p)}" alt="${esc(p.n)}" onerror="this.style.display='none'">
+ <h4>${esc(p.n)}</h4><small>${esc(p.unit)}</small>
+ <div class="price">${money(p.price)} <span class="old">${p.old.toFixed(2)}</span>
+ <button class="add" onclick="addCart(${p.id})">+</button></div></div>`
 }
-function renderProducts(){
-let cats=['Ҳама',...new Set(products.map(p=>p.cat))];
-$('categories').innerHTML=cats.map(c=>`<button class="chip ${category===c?'active':''}" onclick="setCategory('${c}')">${c}</button>`).join('');
-let items=products.filter(p=>(category==='Ҳама'||p.cat===category)&&p.name.toLowerCase().includes(searchText.toLowerCase()));
-$('allProducts').innerHTML=items.length?items.map(productHTML).join(''):'<div class="empty">Маҳсулот ёфт нашуд</div>';
-$('homeProducts').innerHTML=products.slice(0,4).map(productHTML).join('')
+function productSection(limit=0){
+ let arr=products.filter(p=>(category==="Ҳама"||p.cat===category)&&p.n.toLowerCase().includes(query.toLowerCase()));
+ if(limit)arr=arr.slice(0,limit);
+ return `<div class="products">${arr.map(productCard).join("")}</div>${arr.length?"":'<div class="empty">Маҳсулот ёфт нашуд.</div>'}`
 }
-function setCategory(c){category=c;renderProducts()}
-function searchProducts(s){
-searchText=s;
-go('products');
-$('search').value=s;
-renderProducts()
+function categories(){
+ return `<div class="categories">${["Ҳама","Мева","Сабзавот","Ширӣ","Нон","Гӯшт","Дигар"].map(c=>`<button class="cat ${category===c?"active":""}" onclick="setCat('${c}')">${c}</button>`).join("")}</div>`
 }
-function addCart(id){
-cart[id]=Math.min(99,(Number(cart[id])||0)+1);
-persist();
-toast('Маҳсулот ба сабад илова шуд')
+function home(){
+ category="Ҳама";
+ return `<div class="hero">
+ <div><h2>Аксияи ҳафта!</h2><p>Тахфифҳои махсус барои маҳсулоти интихобшуда</p>
+ <button onclick="navigate('products')">То −30% · Бинед →</button></div>
+ <div class="food">🛒🥬</div></div>
+ <div class="shortcuts">
+ <button class="shortcut" onclick="navigate('coupons')"><b>🎟️</b>Купонҳо</button>
+ <button class="shortcut" onclick="navigate('products')"><b>💯</b>Аксияҳо</button>
+ <button class="shortcut" onclick="navigate('plus')"><b>🪙</b>Бонусҳо</button>
+ <button class="shortcut" onclick="navigate('branches')"><b>📍</b>Филиалҳо</button>
+ </div>
+ <div class="section-head"><h3>Категорияҳо</h3><button class="more" onclick="navigate('products')">Ҳамааш →</button></div>
+ ${categories()}
+ <div class="section-head"><h3>Пешниҳодҳои махсус</h3><button class="more" onclick="navigate('products')">Ҳамааш →</button></div>
+ ${productSection(6)}
+ <div class="section-head"><h3>Купонҳои шумо</h3><button class="more" onclick="navigate('coupons')">Ҳамааш →</button></div>
+ ${couponList(true)}
+ <p class="notice">Ин версияи намунавӣ аст. Нархҳо, аксияҳо ва бонусҳо воқеӣ нестанд.</p>`
 }
-function changeQty(id,d){
-let n=(Number(cart[id])||0)+d;
-if(n<=0)delete cart[id];
-else cart[id]=Math.min(99,n);
-persist();
-renderCart()
-}
-function calc(){
-let subtotal=0,milk=0,fruit=0;
-for(let [id,q] of Object.entries(cart)){
-let p=products.find(x=>x.id===Number(id));
-if(!p)continue;
-let v=p.price*Math.max(0,Math.min(99,Math.floor(Number(q)||0)));
-subtotal+=v;
-if(p.id===1)milk+=v;
-if(p.cat==='Мева')fruit+=v
-}
-let discount=0;
-if(activated.includes('milk'))discount+=milk*.2;
-if(activated.includes('fruit'))discount+=fruit*.15;
-if(activated.includes('basket')&&subtotal>150)discount+=10;
-discount=Math.min(subtotal,discount);
-return {subtotal,discount,total:subtotal-discount}
-}
-function renderCart(){
-let html='';
-for(let [id,q] of Object.entries(cart)){
-let p=products.find(x=>x.id===Number(id));
-let qty=Math.max(0,Math.min(99,Math.floor(Number(q)||0)));
-if(!p||!qty)continue;
-html+=`<div class="line row"><div style="display:flex;gap:10px;align-items:center"><img src="${p.img}" alt="" style="width:55px;height:55px;object-fit:cover;border-radius:9px"><div><b>${p.name}</b><div class="muted">${money(p.price)}</div></div></div><div class="qty"><button class="tiny" onclick="changeQty(${p.id},-1)">−</button><b>${qty}</b><button class="tiny" onclick="changeQty(${p.id},1)">+</button></div></div>`
-}
-$('cartItems').innerHTML=html||'<div class="empty">Сабади шумо холӣ аст</div>';
-let c=calc();
-$('subtotal').textContent=money(c.subtotal);
-$('discount').textContent='− '+money(c.discount);
-$('cartTotal').textContent=money(c.total)
-}
-function renderPlus(){
-$('coupons').innerHTML=coupons.map(c=>`<div class="coupon"><strong>${c.title}</strong><p class="muted">${c.desc}</p><button class="btn ${activated.includes(c.id)?'outline':''}" onclick="toggleCoupon('${c.id}')">${activated.includes(c.id)?'✓ Фаъол · бекор кардан':'Фаъол кардани купон'}</button></div>`).join('');
-$('receipts').innerHTML=receipts.length?receipts.slice().reverse().map(r=>`<div class="line"><b>Расиди Demo №${r.id}</b><div class="muted">${r.date} · ${r.branch}</div><div>Маблағ: ${money(r.total)} · Тахфиф: ${money(r.discount)}</div></div>`).join(''):'<p class="muted">Ҳоло расид нест.</p>';
-$('receiptCount').textContent=receipts.length
+function couponList(short=false){
+ return coupons.slice(0,short?2:coupons.length).map(c=>{
+ let active=state.activeCoupons.includes(c.id);
+ return `<div class="coupon"><div class="symbol">${c.symbol}</div><div class="info">
+ <h3>${c.title}</h3><p>${c.desc}</p></div>
+ <button class="${active?"secondary":"primary"}" onclick="toggleCoupon('${c.id}')">${active?"✓ Фаъол":"Фаъол кун"}</button></div>`
+ }).join("")
 }
 function toggleCoupon(id){
-activated=activated.includes(id)?activated.filter(x=>x!==id):[...activated,id];
-persist();
-renderPlus();
-toast('Ҳолати купон тағйир ёфт')
+ let i=state.activeCoupons.indexOf(id);
+ if(i>=0)state.activeCoupons.splice(i,1);else state.activeCoupons.push(id);
+ save();render();toast(i>=0?"Купон ғайрифаъол шуд":"Купон фаъол шуд");
 }
-function toggleFavorite(id){
-favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];
-persist();
-renderProducts();
-renderFavorites();
-toast('Рӯйхати харид нав шуд')
+function addCart(id){
+ state.cart[id]=(state.cart[id]||0)+1;save();toast("Ба сабад илова шуд");
+ if(page==="cart")render();
 }
-function renderFavorites(){
-$('favorites').innerHTML=favorites.length?favorites.map(id=>products.find(p=>p.id===id)).filter(Boolean).map(p=>`<div class="line row"><div><b>${p.name}</b><div class="muted">${money(p.price)}</div></div><button class="tiny" onclick="addCart(${p.id})">+ Сабад</button><button class="tiny" onclick="toggleFavorite(${p.id})">×</button></div>`).join(''):'<div class="empty">Рӯйхат холӣ аст. Дар каталог аломати ♡-ро пахш кунед.</div>'
+function changeQty(id,delta){
+ state.cart[id]=Math.max(0,(state.cart[id]||0)+delta);
+ if(!state.cart[id])delete state.cart[id];save();render();
+}
+function toggleFav(id){
+ let i=state.favorites.indexOf(id);
+ if(i>=0)state.favorites.splice(i,1);else state.favorites.push(id);
+ save();render();
+}
+function totals(){
+ let sub=0,discount=0,items=[];
+ for(let [id,q] of Object.entries(state.cart)){
+  let p=products.find(x=>x.id==id);if(!p)continue;
+  let amount=p.price*q;sub+=amount;
+  let percent=0;
+  for(let c of coupons){
+   if(state.activeCoupons.includes(c.id)&&c.type==="cat"&&c.cat===p.cat)percent=Math.max(percent,c.value);
+  }
+  discount+=amount*percent/100;
+  items.push({id:p.id,name:p.n,qty:q,price:p.price,amount});
+ }
+ if(state.activeCoupons.includes("basket")&&sub>150)discount+=10;
+ discount=Math.min(sub,discount);
+ return {sub,discount,total:sub-discount,items};
+}
+function cart(){
+ let t=totals();
+ if(!t.items.length)return `<div class="empty"><div class="emoji">🛒</div><h3>Сабади шумо холӣ аст</h3><button class="primary" onclick="navigate('products')">Маҳсулот интихоб кунед</button></div>`;
+ return `<h2>🛒 Сабади харид</h2><div class="panel">
+ ${t.items.map(i=>`<div class="rowline"><div><b>${esc(i.name)}</b><br><small>${money(i.price)} × ${i.qty}</small></div>
+ <div class="qty"><button onclick="changeQty(${i.id},-1)">−</button><b>${i.qty}</b><button onclick="changeQty(${i.id},1)">+</button></div></div>`).join("")}</div>
+ <div class="panel"><h3>Ҳисоби харид</h3>
+ <div class="rowline"><span>Маҳсулот</span><b>${money(t.sub)}</b></div>
+ <div class="rowline"><span>Тахфиф</span><b style="color:#d32637">−${money(t.discount)}</b></div>
+ <div class="rowline"><strong>Ҳамагӣ</strong><strong style="color:var(--green);font-size:21px">${money(t.total)}</strong></div>
+ <button class="primary" style="width:100%;margin-top:14px" onclick="checkout()">Анҷоми хариди намунавӣ →</button></div>
+ <p class="notice">Пардохти воқеӣ анҷом дода намешавад. Ин танҳо намоиши ҳисобкунии тахфиф аст.</p>`
 }
 function checkout(){
-let c=calc();
-if(c.subtotal<=0){toast('Аввал маҳсулот интихоб кунед');return}
-if(!confirm('Хариди озмоиширо анҷом диҳем? Пардохт сурат намегирад.'))return;
-receipts.push({id:Date.now().toString().slice(-8),date:new Date().toLocaleString('tg-TJ'),branch,total:c.total,discount:c.discount});
-receipts=receipts.slice(-20);
-cart={};
-persist();
-renderCart();
-renderPlus();
-go('plus');
-toast('Расиди намунавӣ сохта шуд')
+ let t=totals();if(!t.items.length)return;
+ let receipt={id:state.seq++,date:new Date().toLocaleString("tg-TJ"),city:state.city,...t};
+ state.receipts.unshift(receipt);state.receipts=state.receipts.slice(0,20);
+ state.points+=Math.floor(t.total/10);
+ state.cart={};save();navigate("receipts");toast("Расиди намунавӣ сохта шуд!");
+}
+function plus(){
+ return `<h2>Корти рақамии ман</h2>
+ <div class="card"><div class="brand">ЁВАР <span>PLUS</span></div>
+ <div class="qrbox" id="qr"></div>
+ <div class="number">YOVAR-DEMO-000001</div>
+ <div class="balance">🪙 ${state.points} хол</div>
+ <p style="font-size:12px;opacity:.85">Корти озмоишӣ барои намоиш</p></div>
+ <div class="panel"><h3>Имтиёзҳои шумо</h3>
+ <div class="rowline"><span>🎟️ Купонҳои фаъол</span><b>${state.activeCoupons.length}</b></div>
+ <div class="rowline"><span>🧾 Расидҳои намунавӣ</span><b>${state.receipts.length}</b></div>
+ <div class="rowline"><span>🪙 Холҳои намунавӣ</span><b>${state.points}</b></div></div>
+ <button class="primary" style="width:100%" onclick="navigate('coupons')">Дидани купонҳо</button>
+ <p class="notice">Ин QR-код ба кассаи воқеии «Ёвар» пайваст нест.</p>`
+}
+function profile(){
+ return `<h2>Профили ман</h2>
+ <div class="panel"><h3>👤 Маълумоти муштарӣ</h3>
+ <label>Номи шумо</label><input class="field" id="profileName" value="${esc(state.name)}" placeholder="Номи худро нависед">
+ <label>Шаҳр / филиали намунавӣ</label>
+ <select class="field" id="profileCity">${["Душанбе","Хуҷанд","Бохтар","Кӯлоб","Ҳисор"].map(x=>`<option ${state.city===x?"selected":""}>${x}</option>`).join("")}</select>
+ <button class="primary" onclick="saveProfile()">Нигоҳ доштан</button></div>
+ <div class="panel">
+ <div class="rowline" onclick="navigate('favorites')">❤️ Маҳсулоти дӯстдошта <span>→</span></div>
+ <div class="rowline" onclick="navigate('receipts')">🧾 Таърихи харид <span>→</span></div>
+ <div class="rowline" onclick="navigate('branches')">📍 Филиалҳо <span>→</span></div>
+ <div class="rowline" onclick="navigate('coupons')">🎟️ Купонҳо <span>→</span></div></div>
+ <p class="notice">Маълумоти ин Demo танҳо дар браузери шумо нигоҳ дошта мешавад.</p>`
 }
 function saveProfile(){
-username=$('username').value.trim().slice(0,80);
-persist();
-toast('Ном нигоҳ дошта шуд')
+ state.name=document.getElementById("profileName").value.trim().slice(0,50);
+ state.city=document.getElementById("profileCity").value;
+ save();toast("Маълумот нигоҳ дошта шуд");
 }
-function saveBranch(){
-branch=$('branch').value;
-persist();
-toast('Филиали намунавӣ интихоб шуд')
+function receipts(){
+ return `<h2>🧾 Расидҳои электронӣ</h2>
+ ${state.receipts.length?state.receipts.map(r=>`<div class="receipt">
+ <b>Расиди №${r.id}</b><p class="notice">${esc(r.date)} · ${esc(r.city)}</p>
+ ${r.items.map(i=>`<div class="rowline"><span>${esc(i.name)} × ${i.qty}</span><span>${money(i.amount)}</span></div>`).join("")}
+ <div class="rowline"><span>Тахфиф</span><b>−${money(r.discount)}</b></div>
+ <div class="rowline"><b>Ҳамагӣ</b><b>${money(r.total)}</b></div>
+ <small>DEMO — расиди фискалӣ нест</small></div>`).join(""):'<div class="empty">Ҳоло расид нест.</div>'}`
 }
-function clearDemo(){
-if(confirm('Маълумоти намунавиро тоза кунем?')){
-localStorage.removeItem(key);
-location.reload()
+function branches(){
+ return `<h2>📍 Филиалҳо</h2><div class="panel">
+ <h3>Интихоби шаҳри намунавӣ</h3>
+ ${["Душанбе","Хуҷанд","Бохтар","Кӯлоб","Ҳисор"].map(c=>`<div class="rowline"><span>📍 ${c}</span><button class="secondary" onclick="selectCity('${c}')">${state.city===c?"✓ Интихобшуда":"Интихоб"}</button></div>`).join("")}
+ </div><p class="notice">Суроғаҳои воқеӣ ва харитаҳо баъди ҳамкорӣ бо ширкат илова мешаванд.</p>`
 }
+function selectCity(c){state.city=c;save();render();toast("Шаҳр интихоб шуд")}
+function render(){
+ let html="";
+ if(page==="home")html=home();
+ if(page==="products")html=`<div class="section-head"><h3>Каталоги маҳсулот</h3><small>${products.length} маҳсулот</small></div>${categories()}<div style="height:15px"></div>${productSection()}`;
+ if(page==="coupons")html=`<h2>🎟️ Купонҳои ман</h2><p class="notice">Купонро фаъол кунед, то тахфиф дар сабади намунавӣ ҳисоб шавад.</p>${couponList()}`;
+ if(page==="cart")html=cart();
+ if(page==="plus")html=plus();
+ if(page==="profile")html=profile();
+ if(page==="favorites")html=`<h2>❤️ Маҳсулоти дӯстдошта</h2><div class="products">${products.filter(p=>state.favorites.includes(p.id)).map(productCard).join("")}</div>${state.favorites.length?"":'<div class="empty">Ҳоло маҳсулоти дӯстдошта нест.</div>'}`;
+ if(page==="receipts")html=receipts();
+ if(page==="branches")html=branches();
+ document.getElementById("main").innerHTML=html;
+ updateHeader();
+ if(page==="plus"){
+  let qr=document.getElementById("qr");
+  if(typeof QRCode!=="undefined")new QRCode(qr,{text:"YOVAR-DEMO-000001",width:150,height:150,colorDark:"#07582b",colorLight:"#ffffff"});
+  else qr.innerHTML='<p style="color:#07582b;padding:40px 0">QR Demo<br>YOVAR-000001</p>';
+ }
 }
-const demoId='YOVAR-DEMO-000001';
-$('memberNumber').textContent=demoId;
-$('username').value=username;
-$('branch').value=branch;
-renderProducts();
-renderCart();
-renderPlus();
-renderFavorites();
-function initQR(){
-let box=$('qr');
-if(typeof QRCode==='undefined'){
-box.textContent='QR дастрас нест';
-box.style.padding='65px 10px';
-return
-}
-box.textContent='';
-new QRCode(box,{text:demoId,width:180,height:180,colorDark:'#111111',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M})
-}
+navigate("home");
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" onload="initQR()" onerror="initQR()"></script>
 </body>
 </html>
